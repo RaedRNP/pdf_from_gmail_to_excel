@@ -77,6 +77,8 @@ def main():
             if 'parts' in payload:
                 for part in payload['parts']:
                     filename = part['filename']
+                    if filename == "":
+                        continue
                     filename = filename.replace(' ', '_')
                     body = part['body']
                     if 'attachmentId' in body:
