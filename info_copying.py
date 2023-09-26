@@ -5,4 +5,7 @@ os.chdir('./Download')
 list_of_files = os.listdir()
 
 for file in list_of_files:
-    print(file)
+    reader = PdfReader(file)
+    page = reader.pages[0]
+    print(page.extract_text(0))
+    break
