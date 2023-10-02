@@ -14,7 +14,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
           'https://www.googleapis.com/auth/gmail.labels',]
 
-def get_label_id(creds):
+def get_label_id(creds, label_required: str):
     # Call the Gmail API
         service = build('gmail', 'v1', credentials=creds)
         result = service.users().labels().list(userId='me').execute()
@@ -24,7 +24,7 @@ def get_label_id(creds):
             print("No labels Found")
         else:
             for label in labels:
-                if label['name'] == 'Fritz': #Change label name. This is what I personaly needed
+                if label['name'] == label_required: #Change label name. This is what I personaly needed
                     return label['id']
                 
 def get_attachment(messageId, attachmentId, creds):
@@ -39,7 +39,7 @@ def get_attachment(messageId, attachmentId, creds):
     
     return file_data
 
-def main():
+def pdf_downloader_main():
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
@@ -65,7 +65,7 @@ def main():
     try:
         # Call the Gmail API
         service = build('gmail', 'v1', credentials=creds)
-        fritz = get_label_id(creds)         
+        fritz = get_label_id(creds, "Fritz")         
         result = service.users().messages().list(userId='me', labelIds=[fritz], q='is:unread').execute()
         
         msgsId = result.get('messages', [])
@@ -99,6 +99,5 @@ def main():
         # TODO(developer) - Handle errors from gmail API.
         print(f'An error occurred: {error}')
 
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    pdf_downloader_main()
