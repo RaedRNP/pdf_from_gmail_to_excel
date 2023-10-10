@@ -10,6 +10,10 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from info_copying import organizer
+from deleting import deleting
+from icecream import ic
+
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly',
           'https://www.googleapis.com/auth/gmail.labels',]
@@ -70,6 +74,10 @@ def pdf_downloader_main():
         
         msgsId = result.get('messages', [])
         
+        if msgsId == []:
+            print("No messages")
+            return
+        
         for msgId in msgsId:
             msgResult = service.users().messages().get(userId='me', id=msgId['id']).execute()
             payload = msgResult.get('payload')
@@ -101,3 +109,7 @@ def pdf_downloader_main():
 
 if __name__ == "__main__":
     pdf_downloader_main()
+    if os.listdir('./Download') is not []:
+        organizer()
+        time.sleep(5)
+        deleting()
