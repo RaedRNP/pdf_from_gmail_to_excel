@@ -109,7 +109,5 @@ def pdf_downloader_main():
 
 if __name__ == "__main__":
     pdf_downloader_main()
-    if os.listdir('./Download') is not []:
-        organizer()
-        time.sleep(5)
-        deleting()
+    """ if os.listdir('./Download') is not []:
+        organizer() """

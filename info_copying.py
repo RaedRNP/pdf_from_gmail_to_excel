@@ -3,8 +3,9 @@ import os
 import re
 import pandas as pd
 
+os.chdir('./Download')
+
 def organizer():
-    os.chdir('./Download')
 
     list_of_files = os.listdir()
     sdf = []
