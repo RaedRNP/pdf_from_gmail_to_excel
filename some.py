@@ -1,6 +1,6 @@
 import string
 
-def decodeAtIndex(s: str, k: int):
+def decodeAtIndex(s: str, k: int) -> str:
         """
         :type s: str
         :type k: int

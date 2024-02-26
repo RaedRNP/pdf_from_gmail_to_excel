@@ -1,8 +1,7 @@
 import os
 
-os.chdir('./Download')
-
 def deleting():
+    #os.chdir('./Download')
     if os.listdir('.') is not []:
         files = [f for f in os.listdir('.')
                  if os.path.isfile(f)]
@@ -10,6 +9,7 @@ def deleting():
             if "PROFORMA" in f:
                 os.remove(f)
             
-    print("Done")
+    print("---------- Empty folder ----------")
     
-deleting()
+if __name__ == "__main__":
+    deleting()

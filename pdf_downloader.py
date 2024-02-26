@@ -24,7 +24,7 @@ def get_label_id(creds, label_required: str):
             print("No labels Found")
         else:
             for label in labels:
-                if label['name'] == label_required: #Change label name. This is what I personaly needed
+                if label['name'] == label_required:
                     return label['id']
                 
 def get_attachment(messageId, attachmentId, creds):
@@ -39,7 +39,7 @@ def get_attachment(messageId, attachmentId, creds):
     
     return file_data
 
-def pdf_downloader_main():
+def pdf_downloader_main(label):
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
@@ -65,8 +65,8 @@ def pdf_downloader_main():
     try:
         # Call the Gmail API
         service = build('gmail', 'v1', credentials=creds)
-        fritz = get_label_id(creds, "Fritz")         
-        result = service.users().messages().list(userId='me', labelIds=[fritz], q='is:unread').execute()
+        label_needed = get_label_id(creds, label)
+        result = service.users().messages().list(userId='me', labelIds=[label_needed], q='is:unread').execute()
         
         msgsId = result.get('messages', [])
         
@@ -93,11 +93,16 @@ def pdf_downloader_main():
                 
             time.sleep(0.5)
             
-        print('saved')
+        print('---------- Saved ----------')
 
     except HttpError as error:
         # TODO(developer) - Handle errors from gmail API.
         print(f'An error occurred: {error}')
 
+from info_copying import organizer
+from deleting import deleting
+
 if __name__ == "__main__":
-    pdf_downloader_main()
+    pdf_downloader_main("Fritz")
+    organizer()
+    deleting()

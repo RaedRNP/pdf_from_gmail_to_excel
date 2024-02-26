@@ -3,9 +3,10 @@ import os
 import re
 import pandas as pd
 
-os.chdir('./Download')
+#os.chdir('./Download')
 
 def organizer():
+    os.chdir('./Download')
 
     list_of_files = os.listdir()
     sdf = []
@@ -44,8 +45,7 @@ def organizer():
 
     d = pd.DataFrame(data=sdf, columns="Cliente,Nota,Emision,Monto".split(","))
 
-    d.to_excel("/home/raed/Desktop/automate/some.xlsx", sheet_name="page", engine="openpyxl")
-
+    d.to_excel("/home/raed/Desktop/automate/notas.xlsx", sheet_name="page", engine="openpyxl", index=False)
 
 if __name__ == "__main__":
     organizer()
