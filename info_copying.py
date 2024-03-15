@@ -45,7 +45,7 @@ def organizer():
 
     d = pd.DataFrame(data=sdf, columns="Cliente,Nota,Emision,Monto".split(","))
 
-    d.to_excel("/home/raed/Desktop/automate/notas.xlsx", sheet_name="page", engine="openpyxl", index=False)
+    d.to_excel("/Users/usuario/Desktop/automate/notas.xlsx", sheet_name="page", engine="openpyxl", index=False)
 
 if __name__ == "__main__":
     organizer()
